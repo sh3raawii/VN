@@ -1,0 +1,23 @@
+{
+  "name": "vn-notications",
+  "version": "0.0.0",
+  "description": "Voice notes notification center",
+  "main": "index.js",
+  "author": "Mostafa Yassin",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "node src/index.js",
+    "start:worker": "",
+    "lint": "standard",
+    "test": ""
+  },
+  "dependencies": {
+    "compression": "^1.7.4",
+    "express": "^4.17.1",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "standard": "^13.1.0"
+  }
+}
