@@ -26,6 +26,15 @@ const createApp = (config) => {
   logger.debug(`mounting health check endpoints`)
   app.use('/health', require('./routes/health'))
 
+  // Error Middlewares
+  logger.debug(`Mounting error middlewares`)
+  // Boomify errors
+  app.use(require('./middlewares/boomify_errors'))
+  // log errors
+  app.use(require('./middlewares/error_logger'))
+  // handle errors
+  app.use(require('./middlewares/error_handler'))
+
   return app
 }
 
