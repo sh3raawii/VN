@@ -15,6 +15,12 @@ const createApp = (config) => {
   app.use(express.json())
   app.use(express.urlencoded({ extended: true }))
 
+  // Set up custom middlewares
+  logger.debug(`mounting custom middlewares`)
+  // http request logger
+  logger.debug(`mounting http request logger`)
+  app.use(require('./middlewares/request_logger'))
+
   // Routers
   // mounting health checks
   logger.debug(`mounting health check endpoints`)
