@@ -25,6 +25,9 @@ const createApp = (config) => {
   // mounting health checks
   logger.debug(`mounting health check endpoints`)
   app.use('/health', require('./routes/health'))
+  // mounting upload router
+  logger.debug(`mounting upload router endpoints`)
+  app.use('/upload', require('./routes/upload'))
 
   // Error Middlewares
   logger.debug(`Mounting error middlewares`)
