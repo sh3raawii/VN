@@ -9,6 +9,9 @@ const createApp = (config) => {
   logger.debug(`creating an express app with the following configurations ${config}`)
   app.set('env', config.environment)
 
+  // connect to external dependencies
+  require('./adapters/mongo')
+
   // Middlewares
   logger.debug(`mounting application middlewares`)
   app.use(compression())
@@ -28,6 +31,8 @@ const createApp = (config) => {
   // mounting upload router
   logger.debug(`mounting upload router endpoints`)
   app.use('/upload', require('./routes/upload'))
+  // mounting notifications router
+  app.use('/notification', require('./routes/notifications'))
 
   // Error Middlewares
   logger.debug(`Mounting error middlewares`)
