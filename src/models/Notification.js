@@ -28,6 +28,8 @@ const NotificationSchema = new mongoose.Schema({
   }
 }, { timestamps: true })
 
+NotificationSchema.index({ recieverId: 1 })
+
 NotificationSchema.plugin(mongooseDelete, {
   overrideMethods: true,
   deletedAt: true,

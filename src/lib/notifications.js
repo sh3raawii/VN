@@ -16,6 +16,22 @@ const getNotifications = async (recieverId, limit, after, read) => {
   return Notification.find(query).sort({ _id: 1 }).limit(limit)
 }
 
+/**
+ * Create a new notification
+ * @param {String} senderId sender id
+ * @param {String} recieverId reciever id
+ * @param {String} voiceNotePath audio file path or key in cloud storage
+ */
+const createNotification = async (senderId, recieverId, voiceNotePath) => {
+  const notification = new Notification({
+    senderId: senderId,
+    recieverId: recieverId,
+    voiceNotePath: voiceNotePath
+  })
+  return notification.save()
+}
+
 module.exports = {
-  getNotifications
+  getNotifications,
+  createNotification
 }
