@@ -1,4 +1,6 @@
 const _ = require('lodash')
+const moment = require('moment')
+
 const Notification = require('../models/Notification')
 
 /**
@@ -31,7 +33,29 @@ const createNotification = async (senderId, recieverId, voiceNotePath) => {
   return notification.save()
 }
 
+/**
+ * get a notification using the notification id
+ * @param {String} id notification document id
+ * @async
+ */
+const getNotification = async (id) => {
+  return Notification.findById(id)
+}
+
+/**
+ * Mark a notification as read.
+ * @param {Notification} notification Mongoose document
+ * @async
+ */
+const markNotificationAsRead = async (notification) => {
+  notification.isRead = true
+  notification.readAt = moment.utc()
+  return notification.save()
+}
+
 module.exports = {
   getNotifications,
-  createNotification
+  getNotification,
+  createNotification,
+  markNotificationAsRead
 }

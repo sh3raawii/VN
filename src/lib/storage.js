@@ -31,11 +31,27 @@ const uploadVoiceNote = async (buffer, key) => {
 const downloadVoiceNote = async (key) => {
   return s3.getObject({
     Bucket: config.awsS3VoiceNotesBucket,
-    key: key
+    Key: key
   }).promise()
+}
+
+/**
+ * Creates a read stream from the voice note with the given key from cloud storage
+ * @param {String} key file full path or name
+ * @returns {ReadableStream}
+ * @example
+ * // pipe the stream into a file on the file-system
+ * streamVoiceNote('clip.ogg').pipe(file)
+ */
+const streamVoiceNote = (key) => {
+  return s3.getObject({
+    Bucket: config.awsS3VoiceNotesBucket,
+    Key: key
+  }).createReadStream()
 }
 
 module.exports = {
   uploadVoiceNote,
-  downloadVoiceNote
+  downloadVoiceNote,
+  streamVoiceNote
 }
