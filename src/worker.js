@@ -30,7 +30,7 @@ const handler = async (job) => {
 }
 
 // Create a worker and run it
-const worker = new WTSQSWorker({ voiceNotesSQS, logger })
+const worker = new WTSQSWorker({ wtsqs: voiceNotesSQS, logger })
 worker.run(handler)
 
 // Gracefully shutown the worker

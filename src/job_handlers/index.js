@@ -13,8 +13,8 @@ const { getUpcomingCustomers } = require('../adapters/schedule_service')
  * @param {Object} data notification data
  * @param {String} data.pilotId pilot id
  * @param {String} data.scheduleId schedule id
- * @param {Object} voiceNote voice note data
- * @param {Buffer} voiceNote.buffer audio buffer
+ * @param {Object} data.voiceNote voice note data
+ * @param {Buffer} data.voiceNote.buffer audio buffer
  */
 const notifyCustomers = async (data) => {
   // Validation
