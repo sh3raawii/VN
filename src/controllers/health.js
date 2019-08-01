@@ -5,6 +5,7 @@ const liveness = async (req, res) => {
 }
 
 const readiness = async (req, res) => {
+  // TODO: Check that S3 credentials are correct and MongoDB is up and running first
   res.json('Server is ready to accept requests chief')
 }
 

@@ -36,7 +36,7 @@ const createNotification = async (senderId, recieverId, voiceNotePath) => {
 }
 
 /**
- * get a notification using the notification id
+ * Get a notification using the notification id
  * @param {String} id notification document id
  * @async
  */

@@ -10,10 +10,7 @@ const config = require('../config')
  */
 const getUpcomingCustomers = async (pilotId, scheduleId) => {
   return rp({
-    uri: `${config.scheduleServiceBaseUrl}/schedule/${scheduleId}/upcoming`,
-    qs: {
-      pilot: pilotId
-    },
+    uri: `${config.scheduleServiceBaseUrl}/pilot/${pilotId}/schedule/${scheduleId}/upcoming`,
     json: true
   })
 }

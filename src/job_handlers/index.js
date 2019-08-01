@@ -7,6 +7,15 @@ const { uploadVoiceNote } = require('../lib/storage')
 const { pushNotificationsSQS, socketsNotificationsSQS } = require('../adapters/sqs')
 const { getUpcomingCustomers } = require('../adapters/schedule_service')
 
+/**
+ * Send a notification to all upcoming customers in a delivery schedule through both push notifications and sockets
+ * @async
+ * @param {Object} data notification data
+ * @param {String} data.pilotId pilot id
+ * @param {String} data.scheduleId schedule id
+ * @param {Object} voiceNote voice note data
+ * @param {Buffer} voiceNote.buffer audio buffer
+ */
 const notifyCustomers = async (data) => {
   // Validation
   if (_.isNil(data.pilotId)) throw new Error('pilotId is not found')
