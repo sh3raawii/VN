@@ -5,6 +5,7 @@ const logger = require('../utils/logger')
 const { createNotifications, deleteVoiceNoteNotification } = require('../lib/notifications')
 const { uploadVoiceNote } = require('../lib/storage')
 const { pushNotificationsSQS, socketsNotificationsSQS } = require('../adapters/sqs')
+const { getUpcomingCustomers } = require('../adapters/schedule_service')
 
 const notifyCustomers = async (data) => {
   // Validation
@@ -13,7 +14,7 @@ const notifyCustomers = async (data) => {
   if (_.isNil(data.voiceNote)) throw new Error('voiceNote is not found')
   if (_.isNil(data.voiceNote.buffer)) throw new Error('voiceNote.buffer is not found')
   // get list of customers to be notified
-  const customers = []
+  const customers = await getUpcomingCustomers(data.pilotId, data.scheduleId)
   // Create unique identifier to the voicenote
   const filename = uuidv4()
   let notifications = null
