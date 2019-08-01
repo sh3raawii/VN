@@ -11,6 +11,8 @@ const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID
 const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY
 const AWS_VOICE_NOTES_BUCKET = process.env.AWS_VOICE_NOTES_BUCKET
 const AWS_VOICE_NOTES_SQS_URL = process.env.AWS_VOICE_NOTES_SQS_URL
+const AWS_PUSH_NOTIFICATIONS_SQS_URL = process.env.AWS_PUSH_NOTIFICATIONS_SQS_URL
+const AWS_SOCKETS_NOTIFICATIONS_SQS_URL = process.env.AWS_SOCKETS_NOTIFICATIONS_SQS_URL
 
 if (_.isNil(MONGODB_URI)) throw new Error('MONGODB_URI is not set')
 if (_.isNil(AWS_ACCESS_KEY_ID)) throw new Error('AWS_ACCESS_KEY_ID is not set')
@@ -29,5 +31,7 @@ module.exports = {
   awsAccessKeyId: AWS_ACCESS_KEY_ID,
   awsSecretAccessKey: AWS_SECRET_ACCESS_KEY,
   awsS3VoiceNotesBucket: AWS_VOICE_NOTES_BUCKET,
-  awsSQSVoiceNotesUrl: AWS_VOICE_NOTES_SQS_URL
+  awsSQSVoiceNotesUrl: AWS_VOICE_NOTES_SQS_URL,
+  awsSQSPushNotificationsUrl: AWS_PUSH_NOTIFICATIONS_SQS_URL,
+  awsSQSSocketsNotificationsUrl: AWS_SOCKETS_NOTIFICATIONS_SQS_URL
 }

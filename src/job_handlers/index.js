@@ -38,10 +38,14 @@ const notify_customers = (data) => {
     const dataPayloads = notifications.map(notification => _.pick(notification, ['_id', 'senderId', 'recieverId', 'voiceNotePath', 'at'])) 
     const pushNotificationsPayloads = dataPayloads.map(d => Object.assign({workerJobType: 'voice_note_notification'}, {data: d}))
     const socketsNotificationsPayloads = dataPayloads.map(d => Object.assign({workerJobType: 'voice_note_notification'}, {data: d}))
-    await Promise.all([
-        pushNotificationsSQS.enqueueMany(pushNotificationsPayloads),
-        socketsNotificationsSQS.enqueueMany(socketsNotificationsPayloads)
-    ])
+    try {
+        await Promise.all([
+            pushNotificationsSQS.enqueueMany(pushNotificationsPayloads),
+            socketsNotificationsSQS.enqueueMany(socketsNotificationsPayloads)
+        ])
+    } catch (error) {
+        logger.error(`Failed to send notification instantly ${error}`)
+    }
 }
 
 module.exports = {

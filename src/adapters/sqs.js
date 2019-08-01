@@ -8,13 +8,13 @@ const voiceNotesSQS = new WTSQS({
 })
 
 const pushNotificationsSQS = new WTSQS({
-    url: config.awsPushNotificationsSQSURL,
+    url: config.awsSQSPushNotificationsUrl,
     accessKeyId: config.awsAccessKeyId,
     secretAccessKey: config.awsSecretAccessKey
 })
 
 const socketsNotificationsSQS = new WTSQS({
-    url: config.awsSocketsNotificationsSQSURL,
+    url: config.awsSQSSocketsNotificationsUrl,
     accessKeyId: config.awsAccessKeyId,
     secretAccessKey: config.awsSecretAccessKey
 })
