@@ -19,6 +19,8 @@ if (_.isNil(AWS_ACCESS_KEY_ID)) throw new Error('AWS_ACCESS_KEY_ID is not set')
 if (_.isNil(AWS_SECRET_ACCESS_KEY)) throw new Error('AWS_SECRET_ACCESS_KEY is not set')
 if (_.isNil(AWS_VOICE_NOTES_BUCKET)) throw new Error('AWS_VOICE_NOTES_BUCKET is not set')
 if (_.isNil(AWS_VOICE_NOTES_SQS_URL)) throw new Error('AWS_VOICE_NOTES_SQS_URL is not set')
+if (_.isNil(AWS_PUSH_NOTIFICATIONS_SQS_URL)) throw new Error('AWS_PUSH_NOTIFICATIONS_SQS_URL is not set')
+if (_.isNil(AWS_SOCKETS_NOTIFICATIONS_SQS_URL)) throw new Error('AWS_SOCKETS_NOTIFICATIONS_SQS_URL is not set')
 
 module.exports = {
   port: PORT,

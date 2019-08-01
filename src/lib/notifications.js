@@ -68,7 +68,7 @@ const createNotifications = async (senderId, recieverIds, voiceNotePath) => {
     recieverId: recieverId,
     voiceNotePath: voiceNotePath
   }))
-  return Notification.insertMany(notifications, {ordered: false})
+  return Notification.insertMany(notifications, { ordered: false })
 }
 
 /**
@@ -77,7 +77,7 @@ const createNotifications = async (senderId, recieverIds, voiceNotePath) => {
  * @param {String} voiceNotePath voicenote id or full path in the cloud storage
  */
 const deleteVoiceNoteNotification = async (voiceNotePath) => {
-  return Notification.delete({voiceNotePath: voiceNotePath})
+  return Notification.delete({ voiceNotePath: voiceNotePath })
 }
 
 module.exports = {

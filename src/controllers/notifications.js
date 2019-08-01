@@ -15,13 +15,13 @@ const list = async (req, res) => {
   res.status(200).json(notifications)
 }
 
-const read = async (req, res) => {
+const read = async (req, res, next) => {
   const notificationId = req.params.id
   const userId = req.query.user // assume we have the user in the query instead of the token for now
   const notification = await getNotification(notificationId)
   if (notification.recieverId !== userId) throw boom.forbidden('You are not allowed to view this notification')
   if (!notification.isRead) await markNotificationAsRead(notification)
-  streamVoiceNote(notification.voiceNotePath).pipe(res)
+  streamVoiceNote(notification.voiceNotePath).on('error', next).pipe(res)
 }
 
 module.exports = {
