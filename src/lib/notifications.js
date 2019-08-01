@@ -5,6 +5,7 @@ const Notification = require('../models/Notification')
 
 /**
  * List notifications
+ * @async
  * @param {String} recieverId filter by recieverId
  * @param {Number} limit number of notifications to return
  * @param {String} after pagination key _id property of notification document
@@ -20,6 +21,7 @@ const getNotifications = async (recieverId, limit, after, read) => {
 
 /**
  * Create a new notification
+ * @async
  * @param {String} senderId sender id
  * @param {String} recieverId reciever id
  * @param {String} voiceNotePath audio file path or key in cloud storage
@@ -53,9 +55,36 @@ const markNotificationAsRead = async (notification) => {
   return notification.save()
 }
 
+/**
+ * Batch create notifications multiple recipients
+ * @param {String} senderId sender id
+ * @param {Array} recieverIds list of reciever ids
+ * @param {String} voiceNotePath audio file path or key in cloud storage
+ * @async
+ */
+const createNotifications = async (senderId, recieverIds, voiceNotePath) => {
+  const notifications = recieverIds.map(recieverId => new Notification({
+    senderId: senderId,
+    recieverId: recieverId,
+    voiceNotePath: voiceNotePath
+  }))
+  return Notification.insertMany(notifications, {ordered: false})
+}
+
+/**
+ * Delete all notifications of a certain voicenote
+ * @async
+ * @param {String} voiceNotePath voicenote id or full path in the cloud storage
+ */
+const deleteVoiceNoteNotification = async (voiceNotePath) => {
+  return Notification.delete({voiceNotePath: voiceNotePath})
+}
+
 module.exports = {
-  getNotifications,
   getNotification,
+  getNotifications,
   createNotification,
-  markNotificationAsRead
+  createNotifications,
+  markNotificationAsRead,
+  deleteVoiceNoteNotification
 }
