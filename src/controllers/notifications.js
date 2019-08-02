@@ -11,6 +11,7 @@ const list = async (req, res) => {
   const limit = _.isInteger(req.query.limit) && req.query.limit > 0 ? Math.min(100, req.query.limit) : 10
   if (!_.isNil(req.query.read) && !_.isBoolean(req.query.read)) throw boom.badRequest('read should be a Boolean')
   // assume we have the user in the query instead of the token for now
+  if (_.isNil(req.query.user)) throw boom.badRequest('Missing user')
   const notifications = await getNotifications(req.query.user, limit, req.query.after, req.query.read)
   res.status(200).json(notifications)
 }
@@ -19,6 +20,7 @@ const read = async (req, res, next) => {
   const notificationId = req.params.id
   const userId = req.query.user // assume we have the user in the query instead of the token for now
   const notification = await getNotification(notificationId)
+  if (_.isNil(notification)) throw boom.notFound('Notification not found')
   if (notification.recieverId !== userId) throw boom.forbidden('You are not allowed to view this notification')
   if (!notification.isRead) await markNotificationAsRead(notification)
   streamVoiceNote(notification.voiceNotePath).on('error', next).pipe(res)

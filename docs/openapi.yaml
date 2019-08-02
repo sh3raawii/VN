@@ -1,0 +1,170 @@
+openapi: 3.0.0
+info:
+  title: Voice Note Notifications API
+  description: a Notification center for voice notes
+  version: 1.0.0
+
+paths:
+  /notification:
+    get:
+      description: get all notifications for the logged customer
+      summary: fetch all notifications
+      operationId: getAllNotifications
+      parameters:
+        - name: limit
+          in: query
+          description: maximum number of notifications to fetch
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            default: 10
+        - name: read
+          in: query
+          description: read receipt filter, if not specified fetches all notifications
+          required: false
+          schema:
+            type: boolean
+            nullable: true
+        - name: after
+          in: query
+          description: pagination parameter, fetch all notifications after
+          required: false
+          schema:
+            type: string
+        - name: user
+          in: query
+          description: the user to fetch notifications for
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: array of notifications
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    _id: 
+                      type: string
+                    senderId: 
+                      type: string
+                    recieverId:
+                      type: string
+                    voiceNotePath:
+                      type: string
+                    at:
+                      type: string
+                      format: date-time
+                    isRead:
+                      type: boolean
+                    readAt:
+                      type: string
+                      format: date-time
+                      nullable: true
+              example:
+                -
+                  _id: '62349635673456036573'
+                  senderId: '123456'
+                  recieverId: '567890'
+                  voiceNotePath: 'd823d0g8s7dgfi'
+                  at: '2017-07-21T17:32:28Z'
+                  isRead: false
+                -
+                  _id: '62349635673456863g67'
+                  senderId: '987654'
+                  recieverId: '567890'
+                  voiceNotePath: 'ojvgcyrd6759ml'
+                  at: '2017-07-22T17:32:28Z'
+                  isRead: true
+                  readAt: '2017-07-22T17:39:28Z'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: string
+              example: 'read should be a Boolean'
+
+  /notification/{id}/read:
+    post:
+      description: 'Mark a notification as read and stream the voice note'
+      summary: 'read notification content'
+      operationId: 'readNotification'
+      parameters:
+        - name: id
+          in: path
+          description: notification id in the database
+          required: true
+          schema:
+            type: string
+        - name: user
+          in: query
+          description: logged in user id
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 'successfully fetched the voice note'
+          content:
+            text/plain:
+              schema:
+                type: string
+                format: binary
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: string
+              example: 'You are not allowed to view this notification'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+              example: 'Notification not found'
+  /upload:
+    post:
+      description: 'send a notification to all upcoming customers in the schedule'
+      summary: 'send voicenote to upcoming customers'
+      operationId: 'uploadVoiceNote'
+      parameters:
+        - name: user
+          in: query
+          description: logged in user id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                clip:
+                  type: string
+                  format: binary
+                scheduleId:
+                  type: string
+      responses:
+        201:
+          description: 'successfully submitted ogg voicenote'
+          content:
+            application/json:
+              schema:
+                type: string
+              example: 'Voice note is submitted successfully'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: string
+              example: 'Missing or incorrect file format'
