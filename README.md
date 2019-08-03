@@ -56,8 +56,63 @@ $ docker build -t vn-service --build-arg RELEASE=v1 ./
 # Run the http service in a container
 $ docker run -d --name vn --env-file .env -p 8080:8080 vn-service yarn start
 # Run the service worker in a container
-$ docker run -d --name vn-worker --env-file .env vn-service-worker yarn start:worker
+$ docker run -d --name vn-worker --env-file .env vn-service yarn start:worker
 ```
 
-Note that if you are going to use docker to run the service you might want to use docker compose or create a docker network
+Note that if you are going to use docker to run the service you might want to use docker compose or run the service in host mode or create a docker network
 
+## Documentation
+
+Run this command to view service docs in browser
+```sh
+$ yarn serve:docs
+```
+
+### API documentation
+
+The service API is documented under /docs using OpenAPI specification
+
+To view the API docs using swagger ui using docker
+```sh
+# pull swagger ui image
+$ docker pull swaggerapi/swagger-ui
+# run container to view the service docs on localhost:9090
+$ docker run -p 9090:8080 -e SWAGGER_JSON=/mnt/docs/openapi.yaml -v "$(pwd):/mnt" swaggerapi/swagger-ui
+```
+
+### Code documentation
+
+The service follows [JSDOC](https://jsdoc.app/) inline code documentation spec and uses [documentationJS](https://documentation.js.org/) to compile the code documentation to Markdown
+
+To update the code docs
+```sh
+$ yarn generate:docs:inline:md
+```
+
+## Development
+
+### Code style
+
+The project follows [StandardJS](https://standardjs.com/) style guide and uses it for code linting and formatting
+
+To check for linting errors
+```sh
+$ yarn lint
+# To fix common linting issues automatically
+$ yarn lint --fix
+```
+
+### Testing
+
+TODO
+
+## TODO
+
+List of things to do before going to production:
+
+- Integrate with Sentry
+- Integrate with Metric services like newrelic
+
+## License
+
+Not Specified

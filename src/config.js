@@ -1,4 +1,5 @@
 const _ = require('lodash')
+// TODO: Implement a Schema for config so that things don't get out of hand
 
 const PORT = process.env.PORT || 80
 const NODE_ENV = process.env.NODE_ENV || 'development'
@@ -15,6 +16,7 @@ const AWS_PUSH_NOTIFICATIONS_SQS_URL = process.env.AWS_PUSH_NOTIFICATIONS_SQS_UR
 const AWS_SOCKETS_NOTIFICATIONS_SQS_URL = process.env.AWS_SOCKETS_NOTIFICATIONS_SQS_URL
 const SCHEDULE_SERVICE_BASE_URL = process.env.SCHEDULE_SERVICE_BASE_URL
 
+// Validation
 if (_.isNil(MONGODB_URI)) throw new Error('MONGODB_URI is not set')
 if (_.isNil(AWS_ACCESS_KEY_ID)) throw new Error('AWS_ACCESS_KEY_ID is not set')
 if (_.isNil(AWS_SECRET_ACCESS_KEY)) throw new Error('AWS_SECRET_ACCESS_KEY is not set')

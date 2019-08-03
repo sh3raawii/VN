@@ -11,7 +11,8 @@
     "start:worker": "node src/worker.js",
     "lint": "standard",
     "test": "",
-    "generate:docs:inline:md": "yarn documentation build src/** -f md --resolve node --sort-order alpha -o docs/inline.md --markdown-toc-max-depth 2"
+    "serve:docs": "docsify serve ./docs",
+    "generate:docs:inline:md": "documentation build src/** -f md --resolve node --sort-order alpha -o docs/inline.md --markdown-toc-max-depth 2"
   },
   "dependencies": {
     "@hapi/boom": "^7.4.2",
@@ -31,6 +32,7 @@
     "wtsqs": "^1.3.0"
   },
   "devDependencies": {
+    "docsify-cli": "^4.3.0",
     "documentation": "^12.1.0",
     "standard": "^13.1.0"
   }
