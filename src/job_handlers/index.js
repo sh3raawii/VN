@@ -24,6 +24,8 @@ const notifyCustomers = async (data) => {
   if (_.isNil(data.voiceNote.buffer)) throw new Error('voiceNote.buffer is not found')
   // get list of customers to be notified
   const customers = await getUpcomingCustomers(data.pilotId, data.scheduleId)
+  if (!_.isArray(customers)) throw new Error('Incorrect response from delivery schedule service, not an arrary')
+  if (customers.length === 0) return
   // Create unique identifier to the voicenote
   const filename = uuidv4()
   let notifications = null

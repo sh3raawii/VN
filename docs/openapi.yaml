@@ -131,7 +131,7 @@ paths:
               example: 'Notification not found'
   /upload:
     post:
-      description: 'send a notification to all upcoming customers in the schedule'
+      description: 'send a notification to all upcoming customers in the schedule with ogg file'
       summary: 'send voicenote to upcoming customers'
       operationId: 'uploadVoiceNote'
       parameters:
