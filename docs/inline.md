@@ -14,8 +14,9 @@
 -   [handleMulterError][10]
 -   [markNotificationAsRead][11]
 -   [notifyCustomers][12]
--   [streamVoiceNote][13]
--   [uploadVoiceNote][14]
+-   [parseBoolean][13]
+-   [streamVoiceNote][14]
+-   [uploadVoiceNote][15]
 
 ## boomifyError
 
@@ -24,10 +25,10 @@ Use this middleware as the first middleware after all routers.
 
 ### Parameters
 
--   `err` **[Error][15]** Express caught error
--   `req` **[Request][16]** Express request object
--   `res` **[Response][17]** Express response object
--   `next` **[Function][18]** Express next function
+-   `err` **[Error][16]** Express caught error
+-   `req` **[Request][17]** Express request object
+-   `res` **[Response][18]** Express response object
+-   `next` **[Function][19]** Express next function
 
 ### Examples
 
@@ -44,9 +45,9 @@ Create a new notification
 
 ### Parameters
 
--   `senderId` **[String][19]** sender id
--   `recieverId` **[String][19]** reciever id
--   `voiceNotePath` **[String][19]** audio file path or key in cloud storage
+-   `senderId` **[String][20]** sender id
+-   `recieverId` **[String][20]** reciever id
+-   `voiceNotePath` **[String][20]** audio file path or key in cloud storage
 
 ## createNotifications
 
@@ -54,9 +55,9 @@ Batch create notifications multiple recipients
 
 ### Parameters
 
--   `senderId` **[String][19]** sender id
--   `recieverIds` **[Array][20]** list of reciever ids
--   `voiceNotePath` **[String][19]** audio file path or key in cloud storage
+-   `senderId` **[String][20]** sender id
+-   `recieverIds` **[Array][21]** list of reciever ids
+-   `voiceNotePath` **[String][20]** audio file path or key in cloud storage
 
 ## deleteVoiceNoteNotification
 
@@ -64,7 +65,7 @@ Delete all notifications of a certain voicenote
 
 ### Parameters
 
--   `voiceNotePath` **[String][19]** voicenote id or full path in the cloud storage
+-   `voiceNotePath` **[String][20]** voicenote id or full path in the cloud storage
 
 ## downloadVoiceNote
 
@@ -72,7 +73,7 @@ Downloads the voice note with the given key from Cloud Storage
 
 ### Parameters
 
--   `key` **[String][19]** file full path or name
+-   `key` **[String][20]** file full path or name
 
 ### Examples
 
@@ -87,10 +88,10 @@ This is typically the last middleware in the application.
 
 ### Parameters
 
--   `err` **[Error][15]** Express caught error
--   `req` **[Request][16]** Express request object
--   `res` **[Response][17]** Express response object
--   `next` **[Function][18]** Express next function
+-   `err` **[Error][16]** Express caught error
+-   `req` **[Request][17]** Express request object
+-   `res` **[Response][18]** Express response object
+-   `next` **[Function][19]** Express next function
 
 ### Examples
 
@@ -104,7 +105,7 @@ Get a notification using the notification id
 
 ### Parameters
 
--   `id` **[String][19]** notification document id
+-   `id` **[String][20]** notification document id
 
 ## getNotifications
 
@@ -112,10 +113,10 @@ List notifications
 
 ### Parameters
 
--   `recieverId` **[String][19]** filter by recieverId
--   `limit` **[Number][21]** number of notifications to return
--   `after` **[String][19]** pagination key \_id property of notification document
--   `read` **[Boolean][22]** filter by the read flag, if not specified it will return all the notifications
+-   `recieverId` **[String][20]** filter by recieverId
+-   `limit` **[Number][22]** number of notifications to return
+-   `after` **[String][20]** pagination key \_id property of notification document
+-   `read` **[Boolean][23]** filter by the read flag, if not specified it will return all the notifications
 
 ## getUpcomingCustomers
 
@@ -123,10 +124,10 @@ Fetch the upcoming customers in a particular schedule for a certain pilot
 
 ### Parameters
 
--   `pilotId` **[String][19]** 
--   `scheduleId` **[String][19]** 
+-   `pilotId` **[String][20]** 
+-   `scheduleId` **[String][20]** 
 
-Returns **[Array][20]&lt;[String][19]>** customer Ids
+Returns **[Array][21]&lt;[String][20]>** customer Ids
 
 ## handleMulterError
 
@@ -135,10 +136,10 @@ Use this middleware after the endpoints that use Multer.
 
 ### Parameters
 
--   `err` **[Error][15]** Express caught error
--   `req` **[Request][16]** Express request object
--   `res` **[Response][17]** Express response object
--   `next` **[Function][18]** Express next function
+-   `err` **[Error][16]** Express caught error
+-   `req` **[Request][17]** Express request object
+-   `res` **[Response][18]** Express response object
+-   `next` **[Function][19]** Express next function
 
 ### Examples
 
@@ -152,7 +153,7 @@ Mark a notification as read.
 
 ### Parameters
 
--   `notification` **[Notification][23]** Mongoose document
+-   `notification` **[Notification][24]** Mongoose document
 
 ## notifyCustomers
 
@@ -160,11 +161,21 @@ Send a notification to all upcoming customers in a delivery schedule through bot
 
 ### Parameters
 
--   `data` **[Object][24]** notification data
-    -   `data.pilotId` **[String][19]** pilot id
-    -   `data.scheduleId` **[String][19]** schedule id
-    -   `data.voiceNote` **[Object][24]** voice note data
-        -   `data.voiceNote.buffer` **[Buffer][25]** audio buffer
+-   `data` **[Object][25]** notification data
+    -   `data.pilotId` **[String][20]** pilot id
+    -   `data.scheduleId` **[String][20]** schedule id
+    -   `data.voiceNote` **[Object][25]** voice note data
+        -   `data.voiceNote.buffer` **[Buffer][26]** audio buffer
+
+## parseBoolean
+
+Parse boolean from a string
+
+### Parameters
+
+-   `str` **[String][20]** string to be parsed eg. 'true', 'True', 'FALSE'
+
+Returns **([Boolean][23] | null)** returns Boolean if success otherwise null
 
 ## streamVoiceNote
 
@@ -172,7 +183,7 @@ Creates a read stream from the voice note with the given key from cloud storage
 
 ### Parameters
 
--   `key` **[String][19]** file full path or name
+-   `key` **[String][20]** file full path or name
 
 ### Examples
 
@@ -185,14 +196,14 @@ Returns **ReadableStream**
 
 ## uploadVoiceNote
 
--   **See: [ AWS documentation][26]**
+-   **See: [ AWS documentation][27]**
 
 Upload a voice note to Cloud Storage
 
 ### Parameters
 
--   `buffer` **[Buffer][25]** file buffer
--   `key` **[String][19]** file full path or name
+-   `buffer` **[Buffer][26]** file buffer
+-   `key` **[String][20]** file full path or name
 
 ### Examples
 
@@ -225,30 +236,32 @@ uploadVoiceNote(clip, 'clip.ogg')
 
 [12]: #notifycustomers
 
-[13]: #streamvoicenote
+[13]: #parseboolean
 
-[14]: #uploadvoicenote
+[14]: #streamvoicenote
 
-[15]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error
+[15]: #uploadvoicenote
 
-[16]: https://developer.mozilla.org/Add-ons/SDK/High-Level_APIs/request
+[16]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error
 
-[17]: https://developer.mozilla.org/docs/Web/Guide/HTML/HTML5
+[17]: https://developer.mozilla.org/Add-ons/SDK/High-Level_APIs/request
 
-[18]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
+[18]: https://developer.mozilla.org/docs/Web/Guide/HTML/HTML5
 
-[19]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[19]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
 
-[20]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[20]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
 
-[21]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+[21]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
 
-[22]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
+[22]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
 
-[23]: https://developer.mozilla.org/docs/Web/API/Notification/Using_Web_Notifications
+[23]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
 
-[24]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[24]: https://developer.mozilla.org/docs/Web/API/Notification/Using_Web_Notifications
 
-[25]: https://nodejs.org/api/buffer.html
+[25]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
 
-[26]: https://docs.aws.amazon.com/AmazonS3/latest/dev/optimizing-performance.html
+[26]: https://nodejs.org/api/buffer.html
+
+[27]: https://docs.aws.amazon.com/AmazonS3/latest/dev/optimizing-performance.html
