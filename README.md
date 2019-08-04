@@ -104,7 +104,14 @@ $ yarn lint --fix
 
 ### Testing
 
-TODO
+The project uses [mocha](https://mochajs.org/) for running tests and [chai](https://www.chaijs.com/) as the assertion library
+
+```sh
+# source test environment variables to shell
+$ set -a; source test.env; set +a;
+# run tests
+$ yarn test
+```
 
 ## TODO
 
