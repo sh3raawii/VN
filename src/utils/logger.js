@@ -10,7 +10,9 @@ const logger = winston.createLogger({
   ),
   defaultMeta: { service: 'voice-notes-notification-service' },
   transports: [
-    new winston.transports.Console()
+    new winston.transports.Console({
+      silent: config.environment === 'test'
+    })
   ]
 })
 
